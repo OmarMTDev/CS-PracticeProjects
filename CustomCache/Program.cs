@@ -1,4 +1,7 @@
-﻿IDataDownloader dw = new CachingDownloader(new Downloader());
+﻿IDataDownloader dw = 
+new CachingDownloader(
+    new PrintingDownloader(
+        new Downloader()));
 
 Console.WriteLine(dw.SlowDownloadData("32da-224ef-124a-ab12"));
 Console.WriteLine(dw.SlowDownloadData("ab12-32da-224ef-124a"));
@@ -26,6 +29,22 @@ public class Cache<TKey, TData>
 public interface IDataDownloader
 {
     public string SlowDownloadData(string id);
+}
+
+public class PrintingDownloader : IDataDownloader
+{
+    private readonly IDataDownloader _dataDownloader;
+
+    public PrintingDownloader(IDataDownloader dataDownloader)
+    {
+        _dataDownloader = dataDownloader;
+    }
+
+    public string SlowDownloadData(string id)
+    {
+        Console.WriteLine("Data ready to be served!");
+        return $"Data with id: {id}";
+    }
 }
 
 public class CachingDownloader : IDataDownloader
