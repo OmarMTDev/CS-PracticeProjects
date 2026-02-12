@@ -26,18 +26,19 @@ public class RecipesConsoleUserInteraction : IRecipesUserInteraction
 
     public void PrintExistingRecipes(IEnumerable<Recipe> allRecipes)
     {
-        if (allRecipes.Count() > 0)
+        if (allRecipes.Any())
         {
             Console.WriteLine("Existing recipes are:" + Environment.NewLine);
 
             var counter = 1;
-            foreach (var recipe in allRecipes)
+
+            allRecipes.ToList().ForEach((recipe) =>
             {
                 Console.WriteLine($"*****{counter}*****");
                 Console.WriteLine(recipe);
                 Console.WriteLine();
                 ++counter;
-            }
+            });
         }
     }
 
@@ -46,10 +47,10 @@ public class RecipesConsoleUserInteraction : IRecipesUserInteraction
         Console.WriteLine("Create a new cookie recipe! " +
             "Available ingredients are:");
 
-        foreach (var ingredient in _ingredientsRegister.All)
+        _ingredientsRegister.All.ToList().ForEach(ingredient =>
         {
             Console.WriteLine(ingredient);
-        }
+        });
     }
 
     public IEnumerable<Ingredient> ReadIngredientsFromUser()
