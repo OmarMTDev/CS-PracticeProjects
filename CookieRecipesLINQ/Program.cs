@@ -1,1 +1,1 @@
-CW
+System.Console.WriteLine("Hi");
