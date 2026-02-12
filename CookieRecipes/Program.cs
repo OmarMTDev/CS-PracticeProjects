@@ -1,4 +1,4 @@
-﻿using CookieRecipes.FileManager;
+using CookieRecipes.FileManager;
 using CookieRecipes.Ingredients;
 
 public static class RecipesApp
