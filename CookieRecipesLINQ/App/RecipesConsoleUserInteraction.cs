@@ -1,5 +1,6 @@
 ﻿using CookieCookbook.Recipes.Ingredients;
 using CookieCookbook.Recipes;
+using System.Threading.Tasks.Dataflow;
 
 namespace CookieCookbook.App;
 
@@ -29,16 +30,14 @@ public class RecipesConsoleUserInteraction : IRecipesUserInteraction
         if (allRecipes.Any())
         {
             Console.WriteLine("Existing recipes are:" + Environment.NewLine);
+            
+            var allRecipesString = allRecipes
+            .Select((recipe, index) =>
+$@"*****{index + 1}*****
+{recipe}");
 
-            var counter = 1;
-
-            allRecipes.ToList().ForEach((recipe) =>
-            {
-                Console.WriteLine($"*****{counter}*****");
-                Console.WriteLine(recipe);
-                Console.WriteLine();
-                ++counter;
-            });
+            Console.WriteLine(string.Join(Environment.NewLine, allRecipesString));
+            Console.WriteLine(Environment.NewLine);
         }
     }
 
@@ -46,11 +45,8 @@ public class RecipesConsoleUserInteraction : IRecipesUserInteraction
     {
         Console.WriteLine("Create a new cookie recipe! " +
             "Available ingredients are:");
-
-        _ingredientsRegister.All.ToList().ForEach(ingredient =>
-        {
-            Console.WriteLine(ingredient);
-        });
+            
+        Console.WriteLine(string.Join(Environment.NewLine, _ingredientsRegister.All));
     }
 
     public IEnumerable<Ingredient> ReadIngredientsFromUser()

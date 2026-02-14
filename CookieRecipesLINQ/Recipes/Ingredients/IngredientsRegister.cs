@@ -16,15 +16,15 @@ public class IngredientsRegister : IIngredientsRegister
 
     public Ingredient GetById(int id)
     {
-        foreach (var ingredient in All)
-        {
-            if (ingredient.Id == id)
-            {
-                return ingredient;
-            }
-        }
+        // Exercise of removing duplications.
+        // if(All.Select(ingred => ingred.Id).Distinct().Count() != All.Count())
+        // {
+        //     throw new InvalidOperationException("There are duplicated Ids in this list.");
+        // }
 
-        return null;
+        return All
+         .FirstOrDefault(ingredient => ingredient.Id == id);
     }
+
 }
 
