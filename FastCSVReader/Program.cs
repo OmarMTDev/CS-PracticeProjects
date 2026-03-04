@@ -26,7 +26,7 @@ Console.WriteLine($"Time of reading the CSV was " +
 
 ITableDataBuilder fastTableDataBuiler = new FastTableDataBuilder();
 
-//TODO uncomment when new code is ready
+
 var testResultForNewCode = TableDataPerformanceMeasurer.Test(
    fastTableDataBuiler, csvData);
 
